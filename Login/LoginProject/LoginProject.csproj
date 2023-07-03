@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <Compile Remove="Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml.cs" />
     <Compile Remove="Areas\Identity\Pages\Account\Manage\Disable2fa.cshtml.cs" />
@@ -32,6 +34,7 @@
     <Content Remove="Areas\Identity\Pages\Account\Manage\PersonalData.cshtml" />
     <Content Remove="Areas\Identity\Pages\Account\Manage\ResetAuthenticator.cshtml" />
     <Content Remove="Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml" />
+    <Content Remove="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,4 +50,7 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
 </Project>

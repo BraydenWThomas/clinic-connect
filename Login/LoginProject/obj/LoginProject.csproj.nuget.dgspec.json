@@ -1,33 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\brayb\\source\\repos\\LoginProject - Copy\\LoginProject.csproj": {}
+    "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/LoginProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\brayb\\source\\repos\\LoginProject - Copy\\LoginProject.csproj": {
+    "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/LoginProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\brayb\\source\\repos\\LoginProject - Copy\\LoginProject.csproj",
+        "projectUniqueName": "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/LoginProject.csproj",
         "projectName": "LoginProject",
-        "projectPath": "C:\\Users\\brayb\\source\\repos\\LoginProject - Copy\\LoginProject.csproj",
-        "packagesPath": "C:\\Users\\brayb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\brayb\\source\\repos\\LoginProject - Copy\\obj\\",
+        "projectPath": "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/LoginProject.csproj",
+        "packagesPath": "/Users/chrissanchez/.nuget/packages/",
+        "outputPath": "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\brayb\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/chrissanchez/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "/usr/local/share/dotnet/sdk/7.0.304/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -96,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
         }
       }
     }
