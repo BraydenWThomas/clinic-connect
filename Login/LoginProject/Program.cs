@@ -4,6 +4,7 @@ using LoginProject.Areas.Identity.Data;
 using System.Configuration;
 using System.Net;
 using LoginProject.Models;
+using ClinicConnect.Models;
 
 namespace LoginProject
 {
@@ -19,7 +20,8 @@ namespace LoginProject
             //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-            
+            builder.Services.AddDbContext<ClinicConnectContext>(options => options.UseMySQL("server = localhost; uid = root; pwd = 10RelationalDatabasesAreVeryUseful!; database = clinic_connect"));
+
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

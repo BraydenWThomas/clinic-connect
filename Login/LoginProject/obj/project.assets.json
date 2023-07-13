@@ -12089,25 +12089,27 @@
     ]
   },
   "packageFolders": {
-    "/Users/chrissanchez/.nuget/packages/": {}
+    "C:\\Users\\Chris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/LoginProject.csproj",
+      "projectUniqueName": "D:\\Users\\Chris\\Documents\\Git\\ClinicConnect\\clinic-connect\\Login\\LoginProject\\LoginProject.csproj",
       "projectName": "LoginProject",
-      "projectPath": "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/LoginProject.csproj",
-      "packagesPath": "/Users/chrissanchez/.nuget/packages/",
-      "outputPath": "/Users/chrissanchez/Documents/Git/ClinicConnect/clinic-connect/Login/LoginProject/obj/",
+      "projectPath": "D:\\Users\\Chris\\Documents\\Git\\ClinicConnect\\clinic-connect\\Login\\LoginProject\\LoginProject.csproj",
+      "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\Chris\\Documents\\Git\\ClinicConnect\\clinic-connect\\Login\\LoginProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/chrissanchez/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/sdk/7.0.304/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12176,7 +12178,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

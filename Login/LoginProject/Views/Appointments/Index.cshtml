@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ClinicConnect.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Clinic Dashboard";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr style="background-color:aqua">
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Practitioner)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentType.AppointmentTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.PatientId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Practitioner.PractitionerId)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.AppointmentId">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Edit
+                        </button>
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.AppointmentId">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Details
+                        </button>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.AppointmentId">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Delete
+                        </button>
+                    </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
