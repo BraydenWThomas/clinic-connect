@@ -12089,19 +12089,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chris\\.nuget\\packages\\": {}
+    "C:\\Users\\brayb\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Chris\\Documents\\Git\\ClinicConnect\\clinic-connect\\Login\\LoginProject\\LoginProject.csproj",
+      "projectUniqueName": "D:\\Brayden\\Work\\FDM\\Csharp\\clinic-connect\\Login\\LoginProject\\LoginProject.csproj",
       "projectName": "LoginProject",
-      "projectPath": "D:\\Users\\Chris\\Documents\\Git\\ClinicConnect\\clinic-connect\\Login\\LoginProject\\LoginProject.csproj",
-      "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Chris\\Documents\\Git\\ClinicConnect\\clinic-connect\\Login\\LoginProject\\obj\\",
+      "projectPath": "D:\\Brayden\\Work\\FDM\\Csharp\\clinic-connect\\Login\\LoginProject\\LoginProject.csproj",
+      "packagesPath": "C:\\Users\\brayb\\.nuget\\packages\\",
+      "outputPath": "D:\\Brayden\\Work\\FDM\\Csharp\\clinic-connect\\Login\\LoginProject\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\brayb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
