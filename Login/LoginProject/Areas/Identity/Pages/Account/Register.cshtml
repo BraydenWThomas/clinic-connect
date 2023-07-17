@@ -43,10 +43,10 @@
                 </div>
             </div>
             <div style="display:flex">
-                <!-- DOB Change from text field to ?? -->
+                <!-- DOB -->
                 <div class="form-floating mb-3" style="width: 60%; padding-right: 10px">
-                    <input asp-for="Input.Dob" type="date" class="form-control" autocomplete="dob" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Dob">Dob</label>
+                    <input asp-for="Input.Dob" type="date" class="form-control" autocomplete="dob" aria-required="true" placeholder="name@example.com" max="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                    <label asp-for="Input.Dob">DOB</label>
                     <span asp-validation-for="Input.Dob" class="text-danger"></span>
                 </div>
                 <!-- PhoneNumber -->
