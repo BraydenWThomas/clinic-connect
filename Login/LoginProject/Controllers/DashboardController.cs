@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClinicConnect.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicConnect.Controllers
 {
+    [Authorize(Roles = "Admin,Practitioner")]
     public class DashboardController : Controller
     {
         private readonly ClinicConnectContext _context;
@@ -17,6 +19,7 @@ namespace ClinicConnect.Controllers
             _context = context;
         }
 
+        
         public IActionResult Index()
         {
             // Fetch appointments or any data required for the scheduler view

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClinicConnect.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicConnect.Controllers
 {

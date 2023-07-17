@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 namespace LoginProject.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,7 +21,6 @@ namespace LoginProject.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult Privacy()
         {
             return View();
