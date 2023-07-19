@@ -1,0 +1,52 @@
+﻿<Properties StartupConfiguration="{CCA140DA-4E34-4A92-909D-3338C94F7F5C}|https">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.LoginProject PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Areas/Identity/Pages/Account/Register.cshtml">
+    <Files>
+      <File FileName="wwwroot/lib/bootstrap/dist/css/bootstrap.css" Line="1142" Column="4" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="18" Column="113" />
+      <File FileName="Areas/Identity/Pages/Account/Register.cshtml" Line="27" Column="59" />
+      <File FileName="Areas/Identity/Pages/Account/Login.cshtml" Line="37" Column="35" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LoginProject">
+            <Node name="LoginProject">
+              <Node name="Areas">
+                <Node name="Identity">
+                  <Node name="Pages">
+                    <Node name="Account">
+                      <Node name="Manage" expanded="True" />
+                      <Node name="Register.cshtml" selected="True" />
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Migrations" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Shared" expanded="True" />
+              </Node>
+              <Node name="wwwroot">
+                <Node name="css" expanded="True" />
+                <Node name="lib" expanded="True">
+                  <Node name="bootstrap" expanded="True">
+                    <Node name="dist" expanded="True">
+                      <Node name="css" expanded="True" />
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

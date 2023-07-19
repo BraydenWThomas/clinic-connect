@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "Clinic Dashboard";
+}
+
+@model List<ClinicConnect.Models.Appointment>
+
+@using ClinicConnect.Models
+
+<div class="d-sm-flex">
+    <div class="container">
+        <h3 class="current-day">
+            @GetDayOfWeek()
+            <script>document.write(new Date().toLocaleDateString());</script>
+        </h3>
+
+        <table class="scheduler-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    @foreach (var practitioner in Model.Select(a => a.Practitioner).Distinct())
+                    {
+                        <th>@GetName(practitioner.UserId ?? 0)</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 18; i++)
+                {
+                    <tr>
+                        <td>@FormatTime(i)</td>
+                        @foreach (var practitioner in Model.Select(a => a.Practitioner).Distinct())
+                        {
+                            var appointments = Model.Where(a => a.PractitionerId == practitioner.PractitionerId && GetTimeSlot(a.Date) == i).ToList();
+                            var appointment = appointments.FirstOrDefault(); // Consider the first appointment for the cell
+
+                            <td class="@(appointment != null ? "appointment-cell" : "free-cell")">
+                                <div class="time-slot" onclick="showAppointmentDetails(this)">
+                                    @(appointment != null ? GetName(appointment.Patient.UserId ?? 0) : "")
+                                    <div class="appointment-details">
+                                        @if (appointment != null)
+                                        {
+                                            <h4>Appointment Details:</h4>
+                                            <p>
+                                                Patient: @GetName(appointment.Patient.UserId ?? 0)<br />
+                                                Appointment Type: @GetAppointmentType(appointment.AppointmentType.AppointmentTypeId)<br />
+                                                Practitioner: @GetName(appointment.Practitioner.UserId ?? 0)<br />
+                                                Date: @appointment.Date.ToString("dd/MM/yyyy")<br />
+                                                Time: @appointment.Date.ToString("hh:mm tt")<br />
+                                                <button class="reschedule-button">Reschedule</button>
+                                                <button class="cancel-button">Cancel</button> 
+                                            </p>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="Side-pannel">
+        <div>
+            <div id="appointmentDetailsPanel" class="appointment-details-panel">
+                <div id="appointmentDetailsContent"></div>
+            </div>
+        </div>
+        <div class="legend">
+            <div class="available">
+                <span class="green-dot"></span>
+                <h5 class="ps-sm-2">Available</h5>
+            </div>
+            <div class="in-person">
+                <span class="red-dot"></span>
+                <h5 class="ps-sm-2">Booked Appointment</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .current-day {
+        color: #207869;
+        border: 2px solid #afcec9;
+        text-align: center;
+        padding: 1rem
+    }
+
+    .scheduler-table {
+        width: 100%;
+    }
+
+        .scheduler-table th,
+        .scheduler-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .scheduler-table th {
+            background-color: #f2f2f2;
+        }
+
+    .free-cell {
+        background-color: #d1efec; /* Green */
+    }
+
+    .appointment-cell {
+        background-color: #f6dade; /* Red */
+    }
+
+        .appointment-cell:hover, .free-cell:hover {
+            border: 2px solid green;
+        }
+
+    .appointment-details {
+        display: none;
+    }
+
+    .time-slot:hover {
+        display: block;
+    }
+    .legend{
+        padding-top:1rem;
+    }
+    .available{
+        display:flex;
+    }
+    .in-person{
+        display:flex;
+    }
+    .green-dot {
+        height: 25px;
+        width: 25px;
+        background-color: #d1efec;
+        border-radius: 50%;
+        border: 1px solid green;
+    }
+    .red-dot {
+        height: 25px;
+        width: 25px;
+        background-color: #f6dade;
+        border-radius: 50%;
+        border: 1px solid red;
+    }
+    .appointment-details-panel {
+        width: 400px;
+        height: 225px;
+        background-color: #e2e8ec;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .reschedule-button {
+        border: 2px solid #afcec9;
+        background-color: white;
+        color: #207869;
+        padding: 7px;
+    }
+    .cancel-button {
+        border: 2px solid #dcaeb9;
+        background-color: white;
+        color: #d7576b;
+        padding: 5px;
+    }
+</style>
+
+   <script>
+       function showAppointmentDetails(element) {
+           var appointmentDetails = element.getElementsByClassName("appointment-details")[0];
+
+           var appointmentContent = appointmentDetails.innerHTML;
+           document.getElementById("appointmentDetailsContent").innerHTML = appointmentContent;
+
+           var appointmentDetailsPanel = document.getElementById("appointmentDetailsPanel");
+           appointmentDetailsPanel.classList.add("show");
+       }
+   </script>
+
+@functions {
+    // Helper function to format time from index to display format
+    string FormatTime(int index)
+    {
+        int hour = index / 2 + 9;
+        int minute = (index % 2) * 30;
+        return $"{hour:D2}:{minute:D2}";
+    }
+
+    // Helper function to get time slot from appointment date
+    int GetTimeSlot(DateTime date)
+    {
+        int hour = date.Hour;
+        int minute = date.Minute;
+
+        return (hour - 9) * 2 + (minute / 30);
+    }
+
+    string GetDayOfWeek()
+    {
+        DateTime currentDate = DateTime.Now;
+        return (currentDate.ToString("dddd"));
+    }
+    string GetName(int userId)
+    {
+        using (var context = new ClinicConnectContext())
+        {
+            var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+            return user?.FirstName + " " + user?.LastName ?? string.Empty;
+        }
+    }
+    string GetAppointmentType(int appointmentTypeId)
+    {
+        using (var context = new ClinicConnectContext())
+        {
+            var appointmentType = context.AppointmentTypes.FirstOrDefault(a => a.AppointmentTypeId == appointmentTypeId);
+            return appointmentType?.Name ?? string.Empty;
+        }
+    }
+}
