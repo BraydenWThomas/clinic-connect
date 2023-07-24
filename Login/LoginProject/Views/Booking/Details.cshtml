@@ -1,0 +1,190 @@
+﻿@using ClinicConnect.Models;
+@model ClinicConnect.Models.AppointmentType
+@{
+    ViewData["Title"] = "Details";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+    <style>
+        .calendar-container {
+            position: relative;
+            display: inline-block;
+            /* Adjust the width and height as needed */
+            width: 300px;
+        }
+
+            .calendar-container input {
+                padding: 10px;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                outline: none;
+                /* Add any additional styling as per your preference */
+            }
+
+        .calendar-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        #appointmentsContainer {
+            padding-top:20px;
+        }
+
+        #practitionersContainer {
+            padding-top:20px;
+            padding-right:100px;
+        }
+        .practitioner-name {
+            margin-bottom: 10px;
+        }
+        li{
+            text-decoration:none;
+        }
+        .btn-group-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+        }
+
+            .btn-group-grid .btn {
+                width: 100%;
+                border-radius:50px;
+            }
+    </style>
+</head>
+
+<h4>Select a time you would like to book</h4>
+<div class="calendar-container">
+    <label for="Date">Appointment Date:</label>
+
+    <input id="appointmentDate" name="appointmentDate" type="date" min="" onchange="updateSelectedDate()" />
+    @*<i class="fas fa-calendar-alt calendar-icon"></i>*@
+</div>
+
+<div class="container">
+    <div id="practitionersContainer">
+        @if (ViewData["Doctors"] != null && ViewData["Doctors"] is List<ClinicConnect.Models.Practitioner> doctors && doctors.Count > 0)
+        {
+            <h5>Available Practitioners:</h5>
+                    @foreach (var doctor in doctors)
+                    {
+                            <p class="practitioner-name">
+                                <input type="radio" name="practitioner" onclick="showAppointments('@doctor.PractitionerId')" />
+                                Dr @GetName(doctor.PractitionerId)
+                            </p>
+                }
+                    
+                @*<a asp-action="Confirm" asp-route-appointmentDate="2023-07-19 12:30:00" asp-route-doctorId=2 asp-route-appointmentTypeId="@Model.AppointmentTypeId">Select</a>*@
+
+            }
+            else
+            {
+                <p>No doctors available.</p>
+            }
+    </div>
+
+    <div id="appointmentsContainer">
+        <!-- Appointments will be displayed here -->
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-outline-success" asp-action="Index">Back</a>
+</div>
+
+
+@section scripts {
+    <script>
+            //https://localhost:7149/Booking/Confirm?appointmentDate=2023-07-19%2012%3A30%3A00&doctorId=2&appointmentTypeId=1
+
+        function showAppointments(doctorId) {
+        var appointmentDate = document.getElementById("appointmentDate").value;
+        var appointments = @Html.Raw(ViewData["Appointments"]);
+
+        appointments = appointments.$values;
+        appointments = appointments.filter(a => parseInt(a.PractitionerId) === parseInt(doctorId));
+        appointments = appointments.filter(a => a.Date.substring(0, 10) === appointmentDate);
+
+            var html = '<h5>Available Times:</h5>';
+            html += '<div class="btn-group-grid">'
+            html += '<table class="table">';
+            html += '<tbody>';
+
+        // Create clickable timeslots between 9:00 ~ 17:00 (30 Mins)
+        var startTime = new Date(appointmentDate + 'T09:00:00');
+        var endTime = new Date(appointmentDate + 'T17:30:00');
+        var currentTime = new Date(startTime); // Make a copy of startTime
+
+        while (currentTime <= endTime) {
+            var timeslotClass = 'timeslot';
+            var isExist = checkIfExist(currentTime.getHours(), currentTime.getMinutes(), appointments);
+
+            if (!isExist) {
+                var formattedTime = currentTime.toLocaleString('en-AU', { timeZone: 'Australia/Sydney', hour: 'numeric', minute: '2-digit' });
+                html += '<button type="button" class="btn btn-outline-success" onclick="selectTime(\'' + formattedTime + '\', ' + doctorId + ')">' +
+                    currentTime.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' }) +
+                    '</button>'; 
+            } else {
+                html += '<button type="button" class="btn btn-outline-secondary disabled" disabled>' +
+                    currentTime.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' }) +
+                    '</button>';
+            }
+
+            currentTime.setMinutes(currentTime.getMinutes() + 30);
+        }
+
+        html += '</div>';
+
+        var appointmentsContainer = document.getElementById("appointmentsContainer");
+        appointmentsContainer.innerHTML = html;
+    }
+
+    function selectTime(formattedTime, doctorId) {
+        // Handle the selected time
+        // You can use this function to perform any additional actions when a time slot is selected,
+        // such as submitting the form or updating the UI.
+        // Example: Redirect to the Confirm action with the selected appointment details
+        window.location.href = '/Booking/Confirm?appointmentDate=' + encodeURIComponent(formattedTime) +
+            '&doctorId=' + encodeURIComponent(doctorId) +
+            '&appointmentTypeId=' + encodeURIComponent('@Model.AppointmentTypeId');
+    }
+
+
+    function checkIfExist(hours, minutes, appointments) {
+            for (var i = 0; i < appointments.length; i++) {
+                var appointment = appointments[i];
+                var appointmentTime = new Date(appointment.Date);
+                var appointmentHours = appointmentTime.getHours();
+                var appointmentMinutes = appointmentTime.getMinutes();
+                
+                // Check if the time slot exists in the appointments array
+                if (hours === appointmentHours && minutes === appointmentMinutes) {
+                    return true;
+                }
+            }
+            return false;
+    }
+    </script>
+
+@functions{
+    string GetName(int userId)
+    {
+        using (var context = new ClinicConnectContext())
+        {
+            var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+            return user?.FirstName + " " + user?.LastName ?? string.Empty;
+        }
+    }
+
+}
+}

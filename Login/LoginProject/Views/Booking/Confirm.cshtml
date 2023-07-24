@@ -1,0 +1,142 @@
+﻿@using ClinicConnect.Models;
+@model ClinicConnect.Models.Appointment
+
+@{
+    ViewData["Title"] = "Confirm";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div style="height:auto">
+    <h4>Please confirm your contact information and booked appointment details</h4>
+    <hr />
+    @*<div class="patient-details">
+            <h6>Patient Details</h6>
+            @if (ViewData["Patient"] != null && ViewData["Patient"] is ClinicConnect.Models.User)
+            {
+                var patient = (ClinicConnect.Models.User)ViewData["Patient"];
+                var formattedContactNumber = patient.PhoneNumber.Insert(4, " ").Insert(8, " ");
+                <p>Patient Name: @patient.FirstName @patient.LastName</p>
+                <p>Patient Date of Birth:  @patient.Dob</p>
+                <p>Patient Contact Number:  @formattedContactNumber</p>
+            }
+            else
+            {
+                <p>No Patient Found</p>
+            }
+        </div>*@
+    <div class="info">
+        <div class="green-box">
+            <div class="circle">
+                <i class="fa fa-calendar-day"></i>
+            </div>
+        </div>
+
+        <div class="appointment-details">
+            <div class="m-3">
+                <h5 style="color: #808e9c ">Appointment Details</h5>
+                @*<p>Booked Appointment Type:  @Model.AppointmentType.Name</p>*@
+                @if (ViewData["Doctor"] != null && ViewData["Doctor"] is ClinicConnect.Models.Practitioner)
+                {
+                    var doctor = (ClinicConnect.Models.Practitioner)ViewData["Doctor"];
+                    <p>Booked with: <strong>Dr @GetName(doctor.PractitionerId)</strong></p>
+                }
+                else
+                {
+                    <p>No Doctor Found</p>
+                }
+                <p id="formattedDate"></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<br />
+
+<div style="display:flex;justify-content: space-between">
+    <a class="btn btn-outline-success" asp-action="Index">Restart</a>
+    <a asp-action="saveToDatabase"
+       asp-route-date="@Model.Date"
+       asp-route-AppointmentTypeId="@Model.AppointmentTypeId"
+       asp-route-patient_id="@Model.PatientId"
+       asp-route-practitioner_id="@Model.PractitionerId"
+       class="btn btn-success">
+        Confirm
+    </a>
+</div>
+
+<script>
+    // JavaScript function to format the date and time separately
+    function formatDateTime(dateTimeString) {
+        const optionsDate = {
+            weekday: 'short',
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+        };
+        const optionsTime = {
+            hour: '2-digit',
+            minute: '2-digit'
+        };
+
+        const date = new Date(dateTimeString).toLocaleString('en-US', optionsDate);
+        const time = new Date(dateTimeString).toLocaleString('en-US', optionsTime);
+
+        return { date, time };
+    }
+
+    // Call the function and set the formatted date and time to the element
+    const appointmentDate = '@Model.Date'; // Assuming @Model.Date contains the date in the format 'yyyy-MM-dd HH:mm:ss'
+    const { date, time } = formatDateTime(appointmentDate);
+    document.getElementById('formattedDate').innerHTML = `Date: <strong>${date}</strong> at <strong>${time}</strong>`;
+</script>
+
+
+
+@functions{
+    string GetName(int userId)
+    {
+        using (var context = new ClinicConnectContext())
+        {
+            var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+            return user?.FirstName + " " + user?.LastName ?? string.Empty;
+        }
+    }
+}
+
+<style>
+    .info {
+        display: flex;
+    }
+
+    .appointment-details {
+        border: 2px solid #c3ced9;
+        width: 100%;
+    }
+    /* Styles for the green box */
+    .green-box {
+        border: 2px solid #5ebab5;
+        background-color: #d1efec;
+        width: 151px;
+        height: 151px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Styles for the circle */
+    .circle {
+        border: 2px solid #5ebab5;
+        background-color: #d1efec;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        /* Styles for the icon inside the circle */
+        .circle i {
+            font-size: 30px;
+            color: #5ebab5; /* Green color */
+        }
+</style>

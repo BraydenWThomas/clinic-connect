@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ClinicConnect.Models.AppointmentType>
+
+@{
+    ViewData["Title"] = "select appointment type";
+}
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        grid-auto-rows: minmax(100px, auto);
+        gap: 10px;
+        padding-top:10px;
+    }
+
+    .btn {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<h4>What appointment would you like to book?</h4>
+
+<div class="grid-container">
+    @foreach (var item in Model)
+    {
+        <form asp-action="Details" asp-route-id="@item.AppointmentTypeId" method="post">
+            <button type="submit" class="btn btn-outline-success">@Html.DisplayFor(modelItem => item.Name)</button>
+        </form>
+    }
+</div>
+

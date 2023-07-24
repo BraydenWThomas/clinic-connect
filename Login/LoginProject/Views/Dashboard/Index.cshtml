@@ -44,8 +44,8 @@
                                                 Patient: @GetName(appointment.Patient.UserId ?? 0)<br />
                                                 Appointment Type: @GetAppointmentType(appointment.AppointmentType.AppointmentTypeId)<br />
                                                 Practitioner: @GetName(appointment.Practitioner.UserId ?? 0)<br />
-                                                Date: @appointment.Date.ToString("dd/MM/yyyy")<br />
-                                                Time: @appointment.Date.ToString("hh:mm tt")<br />
+                                                Date: @appointment.Date<br />
+                                                Time: @appointment.Date<br />
                                                 <button class="reschedule-button">Reschedule</button>
                                                 <button class="cancel-button">Cancel</button> 
                                             </p>
@@ -187,10 +187,11 @@
     }
 
     // Helper function to get time slot from appointment date
-    int GetTimeSlot(DateTime date)
+    int GetTimeSlot(String date)
     {
-        int hour = date.Hour;
-        int minute = date.Minute;
+        DateTime appointmentDate = DateTime.Parse(date);
+        int hour = appointmentDate.Hour;
+        int minute = appointmentDate.Minute;
 
         return (hour - 9) * 2 + (minute / 30);
     }
