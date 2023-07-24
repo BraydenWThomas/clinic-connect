@@ -24,7 +24,8 @@ namespace LoginProject
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddClaimsPrincipalFactory<MyUserClaimsPrincipalFactory>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

@@ -1,8 +1,11 @@
-﻿using LoginProject.Models;
+﻿using LoginProject.Areas.Identity.Data;
+using LoginProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace LoginProject.Controllers
 {
@@ -31,5 +34,6 @@ namespace LoginProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
