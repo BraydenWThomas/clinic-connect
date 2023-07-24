@@ -85,6 +85,7 @@ namespace LoginProject
                 string postcode = "3233";
                 string suburb = "asdasdas";
                 string title = "Title";
+                bool Staff = true;
 
                 if (await userManager.FindByEmailAsync(email) == null)
                 {
@@ -100,6 +101,7 @@ namespace LoginProject
                     user.Postcode = postcode;
                     user.Suburb = suburb;
                     user.Title = title;
+                    user.Staff = Staff;
 
 
                     await userManager.CreateAsync(user, password);

@@ -32,5 +32,7 @@ public class ApplicationUser : IdentityUser
 
     public string PhoneNumber { get; set; }
 
+    public bool Staff { get; set; }
+
 }
 

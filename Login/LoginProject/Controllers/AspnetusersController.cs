@@ -7,93 +7,103 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LoginProject.Areas.Identity.Data;
 using LoginProject.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Data;
 
 namespace LoginProject.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class AspnetrolesController : Controller
+    public class AspnetusersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public AspnetrolesController(ApplicationDbContext context)
+        public AspnetusersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Aspnetroles
-        public async Task<IActionResult> Index()
+        // GET: Aspnetusers
+        //public async Task<IActionResult> Index()
+        //{
+        //      return _context.Aspnetusers != null ? 
+        //                  View(await _context.Aspnetusers.ToListAsync()) :
+        //                  Problem("Entity set 'ApplicationDbContext.Aspnetusers'  is null.");
+        //}
+
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Aspnetroles != null ? 
-                          View(await _context.Aspnetroles.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Aspnetroles'  is null.");
+            ViewData["CurrentFilter"] = searchString;
+
+            var Aspnetusers = from s in _context.Aspnetusers select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Aspnetusers = Aspnetusers.Where(s => s.FirstName.Contains(searchString)|| s.LastName.Contains(searchString) || s.Email.Contains(searchString));
+            }
+            return View(await Aspnetusers.AsNoTracking().ToListAsync());
         }
 
-        // GET: Aspnetroles/Details/5
+        // GET: Aspnetusers/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.Aspnetroles == null)
+            if (id == null || _context.Aspnetusers == null)
             {
                 return NotFound();
             }
 
-            var aspnetrole = await _context.Aspnetroles
+            var aspnetusers = await _context.Aspnetusers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (aspnetrole == null)
+            if (aspnetusers == null)
             {
                 return NotFound();
             }
 
-            return View(aspnetrole);
+            return View(aspnetusers);
         }
 
-        // GET: Aspnetroles/Create
+        // GET: Aspnetusers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Aspnetroles/Create
+        // POST: Aspnetusers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] Aspnetrole aspnetrole)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,IsStaff,Email")] Aspnetusers aspnetusers)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(aspnetrole);
+                //ModelState.SetModelValue("");
+                _context.Add(aspnetusers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(aspnetrole);
+            return View(aspnetusers);
         }
 
-        // GET: Aspnetroles/Edit/5
+        // GET: Aspnetusers/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.Aspnetroles == null)
+            if (id == null || _context.Aspnetusers == null)
             {
                 return NotFound();
             }
 
-            var aspnetrole = await _context.Aspnetroles.FindAsync(id);
-            if (aspnetrole == null)
+            var aspnetusers = await _context.Aspnetusers.FindAsync(id);
+            if (aspnetusers == null)
             {
                 return NotFound();
             }
-            return View(aspnetrole);
+            return View(aspnetusers);
         }
 
-        // POST: Aspnetroles/Edit/5
+        // POST: Aspnetusers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp")] Aspnetrole aspnetrole)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,IsStaff,Email")] Aspnetusers aspnetusers)
         {
-            if (id != aspnetrole.Id)
+            if (id != aspnetusers.Id)
             {
                 return NotFound();
             }
@@ -102,12 +112,12 @@ namespace LoginProject.Controllers
             {
                 try
                 {
-                    _context.Update(aspnetrole);
+                    _context.Update(aspnetusers);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AspnetroleExists(aspnetrole.Id))
+                    if (!AspnetusersExists(aspnetusers.Id))
                     {
                         return NotFound();
                     }
@@ -118,49 +128,49 @@ namespace LoginProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aspnetrole);
+            return View(aspnetusers);
         }
 
-        // GET: Aspnetroles/Delete/5
+        // GET: Aspnetusers/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.Aspnetroles == null)
+            if (id == null || _context.Aspnetusers == null)
             {
                 return NotFound();
             }
 
-            var aspnetrole = await _context.Aspnetroles
+            var aspnetusers = await _context.Aspnetusers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (aspnetrole == null)
+            if (aspnetusers == null)
             {
                 return NotFound();
             }
 
-            return View(aspnetrole);
+            return View(aspnetusers);
         }
 
-        // POST: Aspnetroles/Delete/5
+        // POST: Aspnetusers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.Aspnetroles == null)
+            if (_context.Aspnetusers == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Aspnetroles'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Aspnetusers'  is null.");
             }
-            var aspnetrole = await _context.Aspnetroles.FindAsync(id);
-            if (aspnetrole != null)
+            var aspnetusers = await _context.Aspnetusers.FindAsync(id);
+            if (aspnetusers != null)
             {
-                _context.Aspnetroles.Remove(aspnetrole);
+                _context.Aspnetusers.Remove(aspnetusers);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AspnetroleExists(string id)
+        private bool AspnetusersExists(string id)
         {
-          return (_context.Aspnetroles?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Aspnetusers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
