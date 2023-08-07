@@ -30,7 +30,7 @@ namespace LoginProject.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
-
+        
             var Aspnetusers = from s in _context.Aspnetusers select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -78,6 +78,35 @@ namespace LoginProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(aspnetusers);
+        }
+
+        // GET: Aspnetusers/AddStaffRole
+        public IActionResult AddStaffRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddStaffRole(string email)
+        {
+            // Find the user by email
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user != null)
+            {
+                // Update the boolean variable
+                user.Staff = true; // Assuming you have a property named IsSubscribed
+
+                // Update the user in the database
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                // Successful update
+                return RedirectToAction("Index", "Home"); // Redirect to a success page
+            }
+
+            // If user is not found
+            return RedirectToAction("Index", "Home"); // Redirect to an error page or home page
         }
 
         // GET: Aspnetusers/Edit/5

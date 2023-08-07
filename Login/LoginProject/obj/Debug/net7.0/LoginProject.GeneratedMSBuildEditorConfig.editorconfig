@@ -124,12 +124,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Brayden/Work/FDM/Csharp/clinic-connect/Login/LoginProject/Views/Aspnetusers/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNwbmV0dXNlcnNcQWRkLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Brayden/Work/FDM/Csharp/clinic-connect/Login/LoginProject/Views/Aspnetusers/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNwbmV0dXNlcnNcQ3JlYXRlLmNzaHRtbA==
+[D:/Brayden/Work/FDM/Csharp/clinic-connect/Login/LoginProject/Views/Aspnetusers/AddStaffRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNwbmV0dXNlcnNcQWRkU3RhZmZSb2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Brayden/Work/FDM/Csharp/clinic-connect/Login/LoginProject/Views/Aspnetusers/Delete.cshtml]

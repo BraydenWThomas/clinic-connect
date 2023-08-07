@@ -1,0 +1,28 @@
+﻿@model LoginProject.Models.Aspnetusers
+
+@{
+    ViewData["Title"] = "ModifyStaff";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Aspnetusers</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddStaffRole">
+            <label for="email">Enter the user's email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Add Staff</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
