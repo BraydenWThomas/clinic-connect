@@ -95,18 +95,23 @@ namespace LoginProject.Controllers
             if (user != null)
             {
                 // Update the boolean variable
-                user.Staff = true; // Assuming you have a property named IsSubscribed
+                user.Staff = true; 
 
                 // Update the user in the database
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 // Successful update
-                return RedirectToAction("Index", "Home"); // Redirect to a success page
+
+                TempData["SuccessMessage"] = "Staff role added successfully.";
+                ViewBag.Message = TempData["SuccessMessage"];
+                return View(); // Redirect to a success page
             }
 
             // If user is not found
-            return RedirectToAction("Index", "Home"); // Redirect to an error page or home page
+            TempData["ErrorMessage"] = "User not found.";
+            ViewBag.Message = TempData["ErrorMessage"];
+            return View(); // Redirect to an error page or home page
         }
 
         // GET: Aspnetusers/Edit/5
@@ -159,6 +164,49 @@ namespace LoginProject.Controllers
             }
             return View(aspnetusers);
         }
+
+
+        public async Task<IActionResult> RemoveStaffRole(string id)
+        {
+            if (id == null || _context.Aspnetusers == null)
+            {
+                return NotFound();
+            }
+
+            var aspnetusers = await _context.Aspnetusers
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (aspnetusers == null)
+            {
+                return NotFound();
+            }
+
+            return View(aspnetusers);
+        }
+
+        [HttpPost, ActionName("RemoveStaffRole")]
+        public async Task<IActionResult> RemoveStaffRoleConfirmed(string id)
+        {
+            // Find the user by ID
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            
+
+            if (user != null)
+            {
+                // Update the staff property
+                user.Staff = false; 
+
+                // Update the user in the database
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                // Successful update
+                return RedirectToAction("Index"); // Redirect to a success page
+            }
+
+            // If user is not found
+            return RedirectToAction("Index"); // Redirect to an error page or home page
+        }
+
 
         // GET: Aspnetusers/Delete/5
         public async Task<IActionResult> Delete(string id)
